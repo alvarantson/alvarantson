@@ -1,0 +1,38 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'checkout.css' %}">
+
+{% if request.session.shopping_cart.0 %}
+<div class="col-xs-12 col-md-6 shopping-cart">
+	<h1>SHOPPING CART</h1>
+	<div class="col-xs-3 prices">
+		{% for item in request.session.shopping_cart %}
+			<h3>{{ item.price }} €</h3>
+		{% endfor %}
+	</div>
+	<div class="col-xs-9 items">
+		{% for item in request.session.shopping_cart %}
+			<h3><b>{{ item.beat_name }}</b> - {{ item.name }}</h3>
+		{% endfor %}
+	</div>
+	
+	<div class="col-xs-12 col-md-2"></div>
+	<div class="col-xs-12 col-md-8 total">
+		<h3>Total: {{ request.session.shopping_cart_total }} €</h3>
+	</div>
+	<div class="col-xs-12 col-md-2"></div>
+</div>
+<div class="col-xs-12 col-md-6 buyer-info">
+	<h1>BUYER INFO:</h1>
+	<form method="POST">{% csrf_token %}
+		<input type="text" name="buyer_first_name" placeholder="First name" required><br>
+		<input type="text" name="buyer_last_name" placeholder="Last name" required><br>
+		<input type="email" name="buyer_email" placeholder="email@email.com" required><br>
+		<input type="text" name="buyer_address" placeholder="Street st 1." required><br>
+		<button type="submit" name="submit-btn" value="buy">PROCEED</button>
+	</form>
+</div>
+{% else %}
+<h3>Shopping cart empty..</h3>
+{% endif %}
+{% include "navbar/footer.html" %}

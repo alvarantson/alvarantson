@@ -13,3 +13,9 @@
 }
 audio {
 }
+.modal-body {
+	text-align: center;
+}
+.modal-body td:hover {
+	background-color: rgba(150,150,150,0.15);
+}

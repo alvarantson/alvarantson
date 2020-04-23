@@ -16,19 +16,6 @@ table .min-width {
 td a {
 	cursor: pointer;
 }
-.modal-dialog {
-	margin-left: 7.5vw;
-	margin-right: 7.5vw;
-}
-.modal-content {
-	width: 85vw;
-}
-.modal-body {
-	padding: 0 0 0 0;
-}
-.modal-body table {
-	margin: 0 0 0 0;
-}
 table input {
 	width: 12em;
 }

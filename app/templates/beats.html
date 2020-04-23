@@ -6,21 +6,55 @@
 	{% for beat in beats %}
 		<div class="col-xs-12 beat">
 			<div class="img">
-				<img src="{{ beat.img.url }}">
+				<img src="{{ beat.beat.img.url }}">
 			</div>
 			<div class="player">
 				<audio controls>
-					<source src="{{ beat.mp3.url }}" type="audio/mp3">
+					<source src="{{ beat.beat.mp3.url }}" type="audio/mp3">
 					Your browser does not support the audio element.
 				</audio>
 			</div>
 			<div class="buy">
-				<form method="POST">{% csrf_token %}
-					<button type="submit" name="submit-btn" value="add-to-cart-beat_{{ beat.id }}">ADD TO CART</button>
-				</form>
+				<a data-toggle="modal" data-target="#modal-{{ beat.beat.id }}">
+					ADD TO CART
+				</a>
 			</div>
 		</div>
 	{% endfor %}
 </div>
 
+{% for beat in beats %}
+<div class="modal fade" id="modal-{{ beat.beat.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">
+					<b>{{ beat.beat.name }}</b> - lease options
+				</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-striped table-dark table-bordered">
+					<tr>
+					{% for lease in beat.lease_options %}
+						<td style="width: {{ beat.lease_width  }}% !important;">
+							<h3>{{ lease.name }}</h3>
+							<p>{{ lease.description|linebreaks }}</p>
+							<h3>{{ lease.price }} €</h3>
+							<form method="POST">{% csrf_token %}
+								<button type="submit" name="submit-btn" value="add-to-cart-beat_{{ lease.id }}">ADD TO CART</button>
+							</form>
+						</td>
+					{% endfor %}
+					</tr>
+				</table>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
 {% include "navbar/footer.html" %}
