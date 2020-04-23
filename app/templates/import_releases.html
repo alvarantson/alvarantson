@@ -1,0 +1,15 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'releases.css' %}">
+<a href="/">BACK</a>
+
+<form method="POST"> {% csrf_token %}
+	<button type="submit" name="submit-btn" value="download-example">DOWNLOAD EXAMPLE</button>	
+</form>
+
+
+<form enctype="multipart/form-data" method="POST"> {% csrf_token %}
+	{{ form }}
+	<input type="submit" value="upload-releases" name="submit-btn">
+</form>
+{% include "navbar/footer.html" %}

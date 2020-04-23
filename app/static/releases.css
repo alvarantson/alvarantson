@@ -1,0 +1,59 @@
+table img {
+	width: 2em;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+table .min-width {
+	max-width: 6em;
+	width: auto;
+	padding-left: 2px !important;
+	padding-right: 2px !important;
+}
+.righty {
+	float: right;
+}
+td a {
+	cursor: pointer;
+}
+.modal-dialog {
+	margin-left: 7.5vw;
+	margin-right: 7.5vw;
+}
+.modal-content {
+	width: 85vw;
+}
+.modal-body {
+	padding: 0 0 0 0;
+}
+.modal-body table {
+	margin: 0 0 0 0;
+}
+table input {
+	width: 12em;
+}
+.th-form {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+.th-form input,
+.th-form button {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.centered {
+	text-align: center;
+}
+th,
+table {
+	text-align: center;
+}
+tr:hover {
+	background-color: rgba(150,150,150,0.1) !important;
+}
+.td-img {
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+	padding-left: 2px !important;
+	padding-right: 2px !important;
+}

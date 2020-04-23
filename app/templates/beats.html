@@ -1,0 +1,26 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'beats.css' %}">
+.<br>.<br>.<br>.<br>
+<div class="col-xs-12">
+	{% for beat in beats %}
+		<div class="col-xs-12 beat">
+			<div class="img">
+				<img src="{{ beat.img.url }}">
+			</div>
+			<div class="player">
+				<audio controls>
+					<source src="{{ beat.mp3.url }}" type="audio/mp3">
+					Your browser does not support the audio element.
+				</audio>
+			</div>
+			<div class="buy">
+				<form method="POST">{% csrf_token %}
+					<button type="submit" name="submit-btn" value="add-to-cart-beat_{{ beat.id }}">ADD TO CART</button>
+				</form>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+
+{% include "navbar/footer.html" %}

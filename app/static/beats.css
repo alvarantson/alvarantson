@@ -1,0 +1,15 @@
+.beat {
+	height: 5em;
+}
+.beat .buy,
+.beat .img,
+.beat .player {
+	display: inline-block;
+}
+.beat img {
+	height: 5em;
+	width: 5em;
+	top: 0;
+}
+audio {
+}

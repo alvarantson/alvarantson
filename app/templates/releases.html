@@ -1,0 +1,193 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'releases.css' %}">
+
+<form method="POST">{% csrf_token %}
+	<button type="submit" name="submit-btn" value="update-all-releases" onclick="loader()">UPDATE</button>
+</form>
+<form method="POST">{% csrf_token %}
+	<button type="submit" name="submit-btn" value="export-releases">EXPORT RELEASES</button>
+</form>
+
+<table class="table table-dark table-bordered table-striped">
+	<thead>
+		<tr>
+			<th scope="col" colspan="4" class="th-form"><form method="POST">{% csrf_token %}
+				<input type="date" name="release_date1" value="{{ default_release_date1 }}">
+				<input type="date" name="release_date2" value="{{ default_release_date2 }}">
+				<input type="text" name="artist" value="{{ default_artist }}" placeholder="Artist">
+				<input type="text" name="name" value="{{ default_name }}" placeholder="Song">
+				<input type="text" name="role" value="{{ default_role }}" placeholder="Role">
+				<button type="submit" name="submit-btn" value="search">FILTER</button>
+			</form></th>
+
+			<th scope="col" class="min-width"></th>
+			<th scope="col" class="min-width">{{ youtube_views_total }}</th>
+			<th scope="col" class="min-width">{{ youtube_likes_total }}</th>
+			<th scope="col" class="min-width">{{ youtube_dislikes_total }}</th>
+
+			<th scope="col" class="min-width"></th>
+			<th scope="col" class="min-width">{{ soundcloud_views_total }}</th>
+			<th scope="col" class="min-width">{{ soundcloud_likes_total }}</th>
+			<th scope="col" class="min-width">{{ soundcloud_reposts_total }}</th>
+			<th scope="col" class="min-width">{{ soundcloud_comments_total }}</th>
+
+			<th scope="col" class="min-width"></th>
+		</tr>
+		<tr>
+			<th scope="col">Release date</th>
+			<th scope="col">Artist</th>
+			<th scope="col">Song</th>
+			<th scope="col">Role</th>
+
+			<th scope="col" class="min-width centered">YT</th>
+			<th scope="col" class="min-width">Views</th>
+			<th scope="col" class="min-width">Likes</th>
+			<th scope="col" class="min-width">Dislikes</th>
+
+			<th scope="col" class="min-width centered">SC</th>
+			<th scope="col" class="min-width">Views</th>
+			<th scope="col" class="min-width">Likes</th>
+			<th scope="col" class="min-width">Reposts</th>
+			<th scope="col" class="min-width">Comments</th>
+
+			<th scope="col" class="min-width centered">SP</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in releases %}
+		<tr>
+			<th scope="row">{{ item.release_date }}</th>
+			<td>{{ item.artist }}</td>
+			<td><a data-toggle="modal" data-target="#modal-{{ item.id }}">
+				{{ item.name }}
+			</a></td>
+			<td>{{ item.role }}</td>
+			{% if item.youtube_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.youtube_url }}">
+					<img src="{% static 'yt_logo.png' %}">
+				</a></td>
+				<td class="min-width">{{ item.stats.youtube_views }}</td>
+				<td class="min-width">{{ item.stats.youtube_likes }}</td>
+				<td class="min-width">{{ item.stats.youtube_dislikes }}</td>
+			{% else %}
+				<td class="min-width"></td>
+				<td class="min-width"></td>
+				<td class="min-width"></td>
+				<td class="min-width"></td>
+			{% endif %}
+			{% if item.soundcloud_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.soundcloud_url }}">
+					<img src="{% static 'sc_logo.png' %}">
+				</a></td>
+				<td class="min-width">{{ item.stats.soundcloud_views }}</td>
+				<td class="min-width">{{ item.stats.soundcloud_likes }}</td>
+				<td class="min-width">{{ item.stats.soundcloud_reposts }}</td>
+				<td class="min-width">{{ item.stats.soundcloud_comments }}</td>
+			{% else %}
+				<td class="min-width"></td>
+				<td class="min-width"></td>
+				<td class="min-width"></td>
+				<td class="min-width"></td>
+				<td class="min-width"></td>
+			{% endif %}
+			{% if item.spotify_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.spotify_url }}">
+					<img src="{% static 'sp_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+		</tr>
+		
+		{% endfor %}
+	</tbody>
+</table>
+
+{% for item in releases %}
+<!-- Modal -->
+<div class="modal fade" id="modal-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">
+					<b>{{ item.artist }}</b> - {{ item.name }}
+					<span class="righty">{{ item.role }} - {{ item.release_date }}</span>
+				</h4>
+			</div>
+		<div class="modal-body">
+			
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th scope="col" class="min-width">Updated</th>
+
+						<th scope="col" class="min-width">Youtube</th>
+						<th scope="col" class="min-width">Views</th>
+						<th scope="col" class="min-width">Likes</th>
+						<th scope="col" class="min-width">Dislikes</th>
+
+						<th scope="col" class="min-width">Soundcloud</th>
+						<th scope="col" class="min-width">Views</th>
+						<th scope="col" class="min-width">Likes</th>
+						<th scope="col" class="min-width">Reposts</th>
+						<th scope="col" class="min-width">Comments</th>
+
+						<th scope="col" class="min-width">Spotify</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for stat in item.stats_history %}
+					<tr>
+						<td>{{ stat.fetch_date }}</td>
+
+					{% if item.youtube_url != "" %}
+						<td class="td-img"><a target="_blank" href="{{ item.youtube_url }}">
+							<img src="{% static 'yt_logo.png' %}">
+						</a></td>
+						<td class="min-width">{{ stat.youtube_views }}</td>
+						<td class="min-width">{{ stat.youtube_likes }}</td>
+						<td class="min-width">{{ stat.youtube_dislikes }}</td>
+					{% else %}
+						<td class="min-width"></td>
+						<td class="min-width"></td>
+						<td class="min-width"></td>
+						<td class="min-width"></td>
+					{% endif %}
+					{% if item.soundcloud_url != "" %}
+						<td class="td-img"><a target="_blank" href="{{ item.soundcloud_url }}">
+							<img src="{% static 'sc_logo.png' %}">
+						</a></td>
+						<td class="min-width">{{ stat.soundcloud_views }}</td>
+						<td class="min-width">{{ stat.soundcloud_likes }}</td>
+						<td class="min-width">{{ stat.soundcloud_reposts }}</td>
+						<td class="min-width">{{ stat.soundcloud_comments }}</td>
+					{% else %}
+						<td class="min-width"></td>
+						<td class="min-width"></td>
+						<td class="min-width"></td>
+						<td class="min-width"></td>
+						<td class="min-width"></td>
+					{% endif %}
+					{% if item.spotify_url != "" %}
+						<td class="td-img"><a target="_blank" href="{{ item.spotify_url }}">
+							<img src="{% static 'sp_logo.png' %}">
+						</a></td>
+					{% else %}
+						<td class="min-width"></td>
+					{% endif %}
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
+{% include "navbar/footer.html" %}
