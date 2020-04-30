@@ -34,3 +34,17 @@ class Seller(models.Model):
 
 	def __str__(self):
 		return "Don't create a new entry!"
+
+class Mail_list(models.Model):
+	email = models.CharField(max_length=999)
+
+	def __str__(self):
+		return self.email
+
+class Stripe_key(models.Model):
+	test = models.CharField(max_length=999, blank=True, default="Test")
+	public_key = models.CharField(max_length=999)
+	private_key = models.CharField(max_length=999)
+
+	def __str__(self):
+		return self.test

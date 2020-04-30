@@ -38,11 +38,18 @@
 <div class="col-xs-12 col-md-6 buyer-info">
 	<h2>BUYER INFO:</h2>
 	<form action="{% url 'charge' %}" method="POST">{% csrf_token %}
-		<input type="text" name="buyer_first_name" placeholder="First name" required><br>
-		<input type="text" name="buyer_last_name" placeholder="Last name" required><br>
-		<input type="text" name="buyer_artist_name" placeholder="Artist name" required><br>
-		<input type="email" name="buyer_email" placeholder="email@email.com" required><br>
-		<input type="text" name="buyer_address" placeholder="Street st 1." required><br>
+		<input onchange="form_checker()" id="buyer_first_name" type="text" name="buyer_first_name" placeholder="First name" required><br>
+		<input onchange="form_checker()" id="buyer_last_name" type="text" name="buyer_last_name" placeholder="Last name" required><br>
+		<input onchange="form_checker()" id="buyer_artist_name" type="text" name="buyer_artist_name" placeholder="Artist name" required><br>
+		<input onchange="form_checker()" id="buyer_email" type="email" name="buyer_email" placeholder="email@email.com" required><br>
+		<input onchange="form_checker()" id="buyer_address" type="text" name="buyer_address" placeholder="Street st 1." required><br>
+		<h5>
+			None of your personal info will be saved except your email (if you check the box below)!<br>
+			Your personal info will only be used for receipt & license generating!<br>
+		</h5>
+
+		<label><input onchange="form_checker()" id="mail_list" type="checkbox" name="mail_list"> <sup> Want new beats delivered to your email?</sup></label><br>
+		<label><input onchange="form_checker()" id="license" type="checkbox" required> <sup>I have seen the license template & agree with it.</sup></label><br>
 
 		<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 			data-key="{{ stripe_public_key }}"
@@ -52,6 +59,25 @@
 		</script>
 		<h3 onclick="pop_up('pop-up-{{ beat.beat.id }}')">View license template</h3>
 		
+		<script type="text/javascript">
+			$(".stripe-button-el").attr("disabled","");
+			function form_checker() {
+				if (
+					$("#buyer_first_name").val() != "" && 
+					$("#buyer_last_name").val() != "" && 
+					$("#buyer_artist_name").val() != "" && 
+					$("#buyer_email").val() != "" && 
+					$("#buyer_address").val() != "" &&
+
+					$("#license").is(':checked') 
+					) {
+					$(".stripe-button-el").removeAttr("disabled");
+				} else {
+					$(".stripe-button-el").attr("disabled","");	
+				} 
+			}
+			
+		</script>
 	</form>
 </div>
 
@@ -65,7 +91,7 @@
 	<div class="col-xs-1 col-ms-2"></div>
 </div>
 {% else %}
-<h3>Shopping cart empty..</h3>
+<h3 class="cart_empty">Shopping cart empty..</h3>
 {% endif %}
 
 

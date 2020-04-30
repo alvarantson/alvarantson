@@ -14,10 +14,12 @@
 <h2><b>{{ item.beat_name }}</b> - {{ item.name }} </h2>
 <h3>
 	<a href="/checkout/download_license/{{ item.lease_id }}" target="_blank">DOWNLOAD LICENSE</a> - 
-	<a href="/checkout/download_files/{{ item.lease_id }}" target="_blank">DOWNLOAD FILE</a> 
-</h3>
+	
+	<a href="/checkout/download_files/{{ item.random_str }}" target="_blank">DOWNLOAD FILE</a> 
+</h3><br>
 {% endfor %}
 <br>
-<h2><a href="/checkout/complete" target="_blank">RETURN TO FRONT PAGE & EMPTY CART</a></h2>
+<h2><a href="/checkout/complete">RETURN TO FRONT PAGE & EMPTY CART</a></h2>
 
 {% include "navbar/footer.html" %}
+

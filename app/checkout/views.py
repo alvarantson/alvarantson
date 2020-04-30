@@ -4,10 +4,9 @@ import stripe
 from django.conf import settings
 from decimal import Decimal
 from paypal.standard.forms import PayPalPaymentsForm
-from .models import Buy_history, License_template, Receipt_template, Seller
+from .models import Buy_history, License_template, Receipt_template, Seller, Mail_list, Stripe_key
 from beats.models import Lease_option
 from LEHT.settings import BASE_DIR
-import pdfkit
 from datetime import datetime
 # Create your views here.
 def read_and_clean_template(template_path):
@@ -19,12 +18,15 @@ def read_and_clean_template(template_path):
 	template = template.replace("</html>","")
 	return template
 
+
 def read_and_replace_template(template_path, context):
 	with open(template_path,'r') as fm:
 		template = str(fm.read())
 
 	for key in context:
 		template = template.replace(key, str(context[key]))
+
+	template += '<script type="text/javascript">window.print();</script>'
 
 	return template
 
@@ -35,9 +37,11 @@ def checkout(request):
 	request.session["shopping_cart_total_int"] = int(float(request.session["shopping_cart_total"])*100)
 	
 	license = read_and_clean_template(BASE_DIR+License_template.objects.all().first().license.url)
+	stripe_public_key = Stripe_key.objects.all()[0].public_key
+
 
 	return render(request, "checkout.html", {
-		"stripe_public_key":settings.STRIPE_PUBLISHABLE_KEY,
+		"stripe_public_key":stripe_public_key,
 		"license": license
 		})
 
@@ -69,7 +73,8 @@ def add(request, lease_id):
 		"lease_id": item.id,
 		"name": item.name,
 		"beat_name": item.beat.name,
-		"price": item.price
+		"price": item.price,
+		"random_str": item.random_str
 		}
 	request.session["shopping_cart_total"] += item.price
 	request.session["shopping_cart"].append(add_to_cart)
@@ -79,7 +84,8 @@ def add(request, lease_id):
 
 def charge(request): # https://testdriven.io/blog/django-stripe-tutorial/
 	if request.method == 'POST':
-		stripe.api_key = settings.STRIPE_SECRET_KEY
+		stripe_private_key = Stripe_key.objects.all()[0].private_key
+		stripe.api_key = stripe_private_key
 		charge = stripe.Charge.create(
 			amount=request.session["shopping_cart_total_int"],
 			currency='eur',
@@ -110,6 +116,12 @@ def charge(request): # https://testdriven.io/blog/django-stripe-tutorial/
 			"buy_id":buy_history.id,
 			"date":str(buy_history.date.strftime("%d %B, %Y"))
 			}
+
+		try:
+			if request.POST["mail_list"]:
+				Mail_list.objects.create(email=request.POST["buyer_email"])
+		except:
+			pass
 	#	request.session["shopping_cart"] = []
 	#	request.session["shopping_cart_total"] = 0
 	#	request.session["shopping_cart_total_int"] = 0
@@ -144,10 +156,12 @@ def download_license(request, lease_id):
 		"ā‚¬":"€"
 		})
 #	template = pdfkit.from_string(template, filename+'.pdf')
-	response = HttpResponse(template, content_type='application/text charset=utf-8')
-	response['Content-Disposition'] = 'attachment; filename="{}.html"'.format(filename)
+	response = HttpResponse(template)
+	#response = HttpResponse(template, content_type='application/text charset=utf-8')
+	#response['Content-Disposition'] = 'attachment; filename="{}.html"'.format(filename)
 	return response
 	
+
 def download_receipt(request):
 #	content = read_and_clean_template(BASE_DIR+Receipt_template.objects.all().first().receipt.url)
 #	content.replace()
@@ -176,26 +190,24 @@ def download_receipt(request):
 		context["&lt;ITEM_PRICE_"+str(i+1)+"&gt;"] = shopping_cart[i]["price"]
 
 	template = read_and_replace_template(BASE_DIR+Receipt_template.objects.all().first().receipt.url, context)
-#	template = pdfkit.from_string(template, filename+'.pdf')
-#	print(template)
-	response = HttpResponse(template, content_type='application/text charset=utf-8')
-	response['Content-Disposition'] = 'attachment; filename="{}.html"'.format(filename)
+	response = HttpResponse(template)
+	#response = HttpResponse(template, content_type='application/text charset=utf-8')
+	#response['Content-Disposition'] = 'attachment; filename="{}.html"'.format(filename)
 	return response
 
 
-def download_files(request, lease_id):
-#	content = read_and_clean_template(BASE_DIR+Receipt_template.objects.all().first().receipt.url)
-#	content.replace()
-	lease = Lease_option.objects.get(id=lease_id)
-	if lease.file_url != "":
-		return HttpResponseRedirect(lease.file_url)
+def download_files(request, random_str):
+	lease = Lease_option.objects.get(random_str=random_str)
+	if lease.dropbox_url != "":
+		url = lease.dropbox_url.replace("dl=0","dl=1")
+		return HttpResponseRedirect(url)
 	else:
 		files = lease.file
 		filename = lease.file.name
 		response = HttpResponse(files, content_type='audio/mpeg')
-		print(lease)
 		response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
 		return response
+
 
 def complete(request):
 	request.session["shopping_cart"] = []

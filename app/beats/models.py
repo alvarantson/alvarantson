@@ -1,4 +1,15 @@
 from django.db import models
+import string
+import random
+
+def id_generator(size=32, chars=string.ascii_uppercase + string.digits):
+	exists = True
+	while exists == True:
+		ran = ''.join(random.choice(chars) for _ in range(size))
+		if len(Lease_option.objects.filter(random_str=ran)) == 0:
+			exists = False
+
+	return ran
 
 # Create your models here.
 class Discount(models.Model):
@@ -28,7 +39,8 @@ class Lease_option(models.Model):
 	percent_after_views = models.IntegerField(null=True)
 	price = models.FloatField()
 	file = models.FileField(upload_to="lease_files", null=True, blank=True)
-	file_url = models.CharField(max_length=999, blank=True)
+	dropbox_url = models.CharField(max_length=999, blank=True)
+	random_str = models.CharField(max_length=999, default=id_generator)
 
 	def __str__(self):
 		return self.beat.name + " - " + self.name

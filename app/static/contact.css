@@ -16,8 +16,8 @@
 }
 .center img{
 	width: 2.5em;
-	margin-left: .25em;
-	margin-right: .25em;
+	margin: .25em .25em .25em .25em;
+
 }
 .main a {
 	color: var(--blue);
