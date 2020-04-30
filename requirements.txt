@@ -1,3 +1,5 @@
 Django
 Pillow
 Requests
+pdfkit
+stripe

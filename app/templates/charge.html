@@ -1,0 +1,23 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'charge.css' %}">
+
+<h2>
+	Thank you for purchasing!<br>
+	<b>After closing this, your downloads will not be available!</b><br>
+	For additional requests, contact me with the proof of purchase (receipt)!
+</h2>
+<br><br>
+<h2><a href="/checkout/download_receipt" target="_blank">DOWNLOAD RECEIPT</a></h2>
+<br>
+{% for item in request.session.shopping_cart %}
+<h2><b>{{ item.beat_name }}</b> - {{ item.name }} </h2>
+<h3>
+	<a href="/checkout/download_license/{{ item.lease_id }}" target="_blank">DOWNLOAD LICENSE</a> - 
+	<a href="/checkout/download_files/{{ item.lease_id }}" target="_blank">DOWNLOAD FILE</a> 
+</h3>
+{% endfor %}
+<br>
+<h2><a href="/checkout/complete" target="_blank">RETURN TO FRONT PAGE & EMPTY CART</a></h2>
+
+{% include "navbar/footer.html" %}

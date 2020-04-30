@@ -3,35 +3,54 @@ from .models import Beat, Lease_option
 # Create your views here.
 def beats(request):
 	beats_raw = Beat.objects.all()
+	tags_raw = []
+	tags_selected = []
+	searched = ""
+	
+
+	# FILTERS
+	if request.POST:
+
+		if request.POST["beat_name"] != "":
+			beats_raw = beats_raw.filter(name__contains=request.POST["beat_name"])
+			searched = request.POST["beat_name"]
+
+		for key in request.POST:
+			if "tag_" in key:
+				beats_raw = beats_raw.filter(tags__contains=key.replace("tag_",""))
+				tags_selected.append(key.replace("tag_",""))
+
+
+	for beat in beats_raw:
+		for tag in beat.tags.replace(", ", ",").replace(" ,", ",").split(","):
+			if tag not in tags_raw:
+				tags_raw.append(tag)
+
 	beats = []
 	for beat in beats_raw:
 		beat_holder = {"beat":beat}
-		beat_holder["lease_options"] = Lease_option.objects.filter(beat=beat)
-		beat_holder["lease_width"] = str(100/len(beat_holder["lease_options"]))
+		beat_holder["lease_options"] = []
+		lease_options = Lease_option.objects.filter(beat=beat)
+		for i in range(int(len(lease_options)/2) + 1):
+			pair = []
+			try:
+				pair.append(lease_options[i*2])
+			except:
+				pass
+			try:
+				pair.append(lease_options[i*2+1])
+			except:
+				beat_holder["lease_options"].append(pair)
+				break
+			beat_holder["lease_options"].append(pair)
 
 		beats.append(beat_holder)
-
-	if request.POST:
-
-		if "add-to-cart-beat" in request.POST["submit-btn"]:
-
-			if not "shopping_cart" in request.session:
-				request.session["shopping_cart"] = []
-
-			item = Lease_option.objects.get(id=request.POST["submit-btn"].replace("add-to-cart-beat_",""))
-			add_to_cart = {
-				"beat_id": item.beat.id,
-				"lease_id": item.id,
-				"name": item.name,
-				"beat_name": item.beat.name,
-				"price": item.price
-				}
-
-			request.session["shopping_cart"].append(add_to_cart)
-
 
 
 
 	return render(request, "beats.html", {
-		"beats": beats
+		"beats": beats,
+		"tags": tags_raw,
+		"tags_selected": tags_selected,
+		"searched": searched
 		})

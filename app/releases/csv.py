@@ -5,7 +5,7 @@ def str_to_date(text):
 	return re.match(r"(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,2})",text).group(0)
 
 def to_csv(items):
-	header = "name\tartist\trole\tyoutube_url\tsoundcloud_url\tspotify_url\trelease_date\n"
+	header = "name\tartist\trole\tyoutube_url\tsoundcloud_url\tspotify_url\trelease_date\tgenre\n"
 	for item in items:
 		header += item.name+"\t"
 		header += item.artist+"\t"
@@ -13,7 +13,8 @@ def to_csv(items):
 		header += item.youtube_url+"\t"
 		header += item.soundcloud_url+"\t"
 		header += item.spotify_url+"\t"
-		header += str(item.release_date)+"\n"
+		header += str(item.release_date)+"\t"
+		header += item.genre+"\n"
 	return header
 
 
@@ -60,14 +61,18 @@ def csv_to_db(import_file):
 			release_date= str_to_date(row.split("\t")[6])
 		except:
 			release_date = ""
-
+		try:
+			genre= row.split("\t")[7]
+		except:
+			genre = ""
 		item = Release(
 			name = name,
 			artist = artist,
 			role = role,
 			youtube_url = youtube_url,
 			soundcloud_url = soundcloud_url,
-			spotify_url = spotify_url
+			spotify_url = spotify_url,
+			genre = genre
 			)
 		if release_date != "":
 			item.release_date = release_date

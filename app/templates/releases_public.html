@@ -1,0 +1,131 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'releases.css' %}">
+
+<div class="main">
+
+
+
+	
+<form method="POST">{% csrf_token %}
+	<button type="submit" name="submit-btn" value="update-all-releases" onclick="loader()">UPDATE</button>
+</form>
+<form method="POST">{% csrf_token %}
+	<button type="submit" name="submit-btn" value="export-releases">EXPORT RELEASES</button>
+</form>
+
+<table class="table table-bordered table-desktop">
+	<thead>
+		<tr>
+			<th scope="col">Release date</th>
+			<th scope="col">Artist</th>
+			<th scope="col">Song</th>
+			<th scope="col">Genre</th>
+			<th scope="col">Role</th>
+
+			<th scope="col" class="min-width centered">YT</th>
+
+			<th scope="col" class="min-width centered">SC</th>
+
+			<th scope="col" class="min-width centered">SP</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in releases %}
+		<tr>
+			<th scope="row">{{ item.release_date }}</th>
+			<td>{{ item.artist }}</td>
+			<td>{{ item.name }}</td>
+			<td>{{ item.genre }}</td>
+			<td>{{ item.role }}</td>
+			{% if item.youtube_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.youtube_url }}">
+					<img src="{% static 'yt_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+			{% if item.soundcloud_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.soundcloud_url }}">
+					<img src="{% static 'sc_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+			{% if item.spotify_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.spotify_url }}">
+					<img src="{% static 'sp_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+		</tr>
+		
+		{% endfor %}
+	</tbody>
+</table>
+
+<table class="table table-bordered table-phone">
+	<thead>
+		<tr>
+			<th scope="col">Release date</th>
+			<th scope="col">Artist</th>
+			<th scope="col">Song</th>
+			<th scope="col">Role</th>
+		</tr>
+		<tr>
+			<th scope="col">Genre</th>
+
+			<th scope="col" class="min-width centered">YT</th>
+
+			<th scope="col" class="min-width centered">SC</th>
+
+			<th scope="col" class="min-width centered">SP</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in releases %}
+		<tr>
+			<th scope="row">{{ item.release_date }}</th>
+			<td>{{ item.artist }}</td>
+			<td>{{ item.name }}</td>
+			<td>{{ item.role }}</td>
+		</tr>
+		<tr>
+			<td>{{ item.genre }}</td>
+			{% if item.youtube_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.youtube_url }}">
+					<img src="{% static 'yt_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+			{% if item.soundcloud_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.soundcloud_url }}">
+					<img src="{% static 'sc_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+			{% if item.spotify_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.spotify_url }}">
+					<img src="{% static 'sp_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+		</tr>
+		
+		{% endfor %}
+	</tbody>
+</table>
+<script type="text/javascript">	
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		$(".table-desktop").toggleClass("hidden");
+	} else {
+		$(".table-phone").toggleClass("hidden");
+	};
+</script>
+
+</div>
+{% include "navbar/footer.html" %}

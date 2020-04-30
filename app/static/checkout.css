@@ -1,15 +1,126 @@
-.shopping-cart h1 {
+.shopping-cart,
+.buyer-info {
+	margin-top: 5em;
+}
+.shopping-cart h2 {
 	text-align: center;
 }
-.prices {
-	text-align: right;
-	border-right: solid thin rgba(0,0,0,0.5);
+.buyer-info h3{
+	cursor: pointer;
 }
-.prices,
-.items {
-	margin-bottom: 1em;
+input {
+	width: 25em;
+	padding: 0.5em 1em 0.5em 1em;
+}
+.items h3 a {
+	float: right;
+}
+.modal-dialog {
+	margin-left: auto;
+	margin-right: auto;
+}
+.modal-content {
+	width: 52em;
+}
+.main table {
+	font-size: 1.5em;
+	color: var(--black);
+}
+.main table td {
+	border: none !important;
+}
+.main .remover {
+	font-size: 1.5em;
+}
+.main .text {
+	padding-top: 0.75em;
 }
 .total {
 	text-align: center;
-	border-top: solid thin rgba(0,0,0,0.5);
+	font-size: 1.5em;
+}
+.stripe-button-el{
+	padding: 0 0 0 0;
+	background-color: rgba(0,0,0,0);
+	padding: 0.15em 0.5em 0.15em 0.5em !important;
+	border-radius: 0.15em;
+	margin-top: 0.75em;
+	margin-bottom: 0.75em;
+	border: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: var(--blue);
+	opacity: 0.7;
+	color: var(--white);
+	border-radius: 0.25em;
+	height: auto;
+	background-image: none;
+}
+.stripe-button-el span {
+	font-family: 'Raleway', sans-serif;
+	font-size: 1.25em;
+	font-weight: 300;
+	background-image: none;
+	background-color: rgba(0,0,0,0);
+	background: rgba(0,0,0,0);
+	border: none;
+	box-shadow: none;
+	padding: 0.15em 0.3em 0.15em 0.3em;
+	height: auto;
+}
+
+
+
+/*   MODAL   */
+
+.pop-up .content {
+	padding-left: 2vw;
+	padding-right: 2vw;
+}
+.pop-up h1 {
+	font-size: 16px;
+}
+
+
+
+/*  PHONE   */
+
+
+.phone .buyer-info{
+	text-align: center;
+}
+.phone .stripe-button-el span {
+	padding: 0.3em 0.6em 0.3em 0.6em;
+}
+.phone h2 {
+	font-size: 3em;
+}
+.phone h3 {
+	font-size: 2.5em;
+}
+.phone input {
+	width: 90vw;
+	margin-left: 5vw;
+	margin-right: 5vw;
+}
+.phone table {
+	font-size: 2.5em;
+}
+.phone .total {
+	font-size: 1.25em;
+}
+.phone .pop-up .content h1,
+.phone .pop-up .content h2,
+.phone .pop-up .content span,
+.phone .pop-up .content {
+	font-size: 24px !important;
+}
+.phone .pop-up .content {
+	margin-top: 3vh !important;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
 }

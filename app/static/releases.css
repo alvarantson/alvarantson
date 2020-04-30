@@ -1,3 +1,10 @@
+.admin-button button {
+	font-size: 1.5em;
+	padding: 0.3em 0.6em 0.3em 0.6em;
+}
+table {
+	background-color: var(--white);
+}
 table img {
 	width: 2em;
 	margin-left: auto;
@@ -36,11 +43,31 @@ table {
 	text-align: center;
 }
 tr:hover {
-	background-color: rgba(150,150,150,0.1) !important;
+	background-color: rgba(150,150,150,0.2) !important;
 }
 .td-img {
 	padding-top: 5px !important;
 	padding-bottom: 5px !important;
 	padding-left: 2px !important;
 	padding-right: 2px !important;
+}
+button,
+input {
+	font-size: 1em;
+	padding: 0.1em 0.1em 0.1em 0.1em;
+	padding: 0 0 0 0;
+	margin: 0 0 0 0;
+	text-align: center;
+}
+.navbar-desktop .glyphicon-shopping-cart {
+	right: 1.5em !important;
+}
+.pop-up .content {
+	padding-left: .5vw;
+	padding-right: .5vw;
+}
+
+.table-phone {
+	margin-top: 2.2em;
+	font-size: 2em;
 }

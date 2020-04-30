@@ -1,0 +1,80 @@
+.main {
+	margin-top: 7em;
+	margin-bottom: 7em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.project {
+	padding: .5em .5em .5em .5em;
+}
+div.img-responsive {
+	width: 100%;
+	min-height: 20em;
+	border-radius: 1em 1em 1em 1em;
+}
+div.img-responsive h3{
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	font-weight: 700;
+	color: var(--white);
+	margin-top: 5em;
+}
+.overlay p.info {
+	font-size: 1em;
+}
+.overlay {
+	margin-top: .5em !important;
+	opacity: 1;
+}
+.overlay .info a{
+	font-size: 1.5em;
+	color: var(--white);
+	border: solid 1px var(--white);
+	border-radius: 1em;
+	padding: .25em .25em .25em .25em; 
+
+}
+.more {
+	text-align: center;
+}
+.more img{
+	width: 2em;
+}
+
+
+
+
+
+/*   PHONE   */
+.phone {
+	margin-top: 10em;
+}
+.phone h2 {
+	font-size: 4em;
+}
+.phone h3 {
+	font-size: 4em;
+}
+.phone ul,
+.phone p {
+	font-size: 3em;
+}
+
+
+.phone div.img-responsive h3{
+	font-size: 4em;
+	margin-top: 5em;
+}
+.phone div.img-responsive {
+	width: 100%;
+	min-height: 45em;
+	border-radius: 1em 1em 1em 1em;
+}
+.phone .overlay {
+	margin-top: 4em;
+}
+.phone .overlay p.info {
+	font-size: 2.5em;
+	margin-top: 1em;
+}

@@ -10,6 +10,6 @@
 
 <form enctype="multipart/form-data" method="POST"> {% csrf_token %}
 	{{ form }}
-	<input type="submit" value="upload-releases" name="submit-btn">
+	<input type="submit" value="upload-releases" name="submit-btn" onclick="loader()">
 </form>
 {% include "navbar/footer.html" %}

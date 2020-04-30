@@ -1,0 +1,21 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'photos.css' %}">
+
+<div class="main">
+	
+{% for photo in photos %}
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 item">
+	<div class="item-img">
+		{% if photo.img %}
+		<img src="{{ photo.img.url }}">
+		{% else %}
+		<img src="{{ photo.url }}">
+		{% endif %}
+	</div>
+</div>
+{% endfor %}
+
+</div>
+
+{% include "navbar/footer.html" %}

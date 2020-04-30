@@ -1,0 +1,61 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'prog.css' %}">
+
+<div class="main">
+	
+
+<div class="col-xs-12 col-md-2"></div>
+<div class="col-xs-12 col-md-8">
+	
+
+
+<div class="col-xs-12 projects">
+	<h2>Some of my biggest projects:</h2>
+	{% for item in projects %}
+	<div class="col-xs-12 col-md-6 col-lg-4 project">
+		<div class="hovereffect">
+			{% if item.img %}
+			<img class="img-responsive" src="{{ beat.img.url }}">
+			{% else %}
+			<div class="img-responsive" style="background-color: {{ item.color }}">
+				<h3>{{ item.name }}</h3>
+			</div>
+			{% endif %}
+			<div class="overlay">
+				<p class="info" href="/beats" style="background-color: {{ item.color }}">
+					<br><br>
+					{{ item.description|safe }}<br><br>
+					{% if item.url %}
+					<a target="_blank" href="{{ item.url }}">Visit</a>
+					{% endif %}
+					{% if item.git %}
+					<a target="_blank" href="{{ item.git }}">GIT</a>
+					{% endif %}
+				</p>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<div class="col-xs-12 more">
+	<h2>
+		For further info: <a target="_blank" href="{{ linkedin.url }}"><img src="{{ linkedin.img.url }}"></a>
+		<br>
+		Or my <a target="_blank" href="https://docs.google.com/document/d/1OG7mdoG-ah901v0jmlMazxQy9a2TIb27jhz2uFskpGs/edit?usp=sharing"><u>CV</u></a> 
+	</h2>
+</div>
+
+
+</div>
+<div class="col-xs-12 col-md-2"></div>
+
+
+</div>
+<script type="text/javascript">
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		$(".main").toggleClass("phone");
+	}
+</script>
+
+{% include "navbar/footer.html" %}

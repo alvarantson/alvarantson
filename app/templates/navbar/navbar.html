@@ -23,23 +23,88 @@
 <div class="loader">
 	<h4>Loading..</h4>
 </div>
-<script type="text/javascript">
-	function loader() {
-		$(".loader").fadeIn(1000);
-	}
-</script>
 
 
 
-<nav>
-	<a href="/">INDEX</a> 
-	<a href="/beats">BEATS</a> 
-	<a href="/releases">RELEASES</a> 
-	<a href="/releases/import">IMPORT RELEASES</a> 
-	<a href="/checkout">CHECKOUT</a> 
-	<a href="/checkout/empty">EMPTY CART</a> 
-	 - CART: 
+<nav class="navbar-desktop">
+	<a href="/"><span>ALVAR ANTSON</span></a> 
+	<a class="main-link" href="/beats">BEATS</a> 
+	<a class="main-link" href="/releases">RELEASES</a> 
+	{% if request.user.is_authenticated %}
+	<a class="main-link" href="/releases/import">IMPORT RELEASES</a> 
+	{% endif %}
 	{% if request.session.shopping_cart %}
-		{{ request.session.shopping_cart }}
+	<a class="main-link cart-link" href="/checkout">CHECKOUT</a> 
+	{% endif %}
+	<a class="main-link" href="/videos">VIDEO</a> 
+	<a class="main-link" href="/code">CODE</a> 
+	<a class="main-link" href="/contact">CONTACT</a> 
+	 
+	<span class="cart">
+	{% if request.session.shopping_cart %}
+		<span class="glyphicon glyphicon-shopping-cart" id="shopping_cart_desktop" aria-hidden="true"></span>
+		<div class="shopping_cart-dropdown hidden">
+			<h5>Total: {{ request.session.shopping_cart_total }} €</h5>
+			{% for item in request.session.shopping_cart %}
+				<h6>
+					{{ item.beat_name }} - 
+					{{ item.price }} € 
+					<a href="/checkout/remove/{{ item.beat_id }},{{ item.lease_id }}">X</a>
+				</h6>
+			{% endfor %}
+
+			<h6><a class="main-link" href="/checkout/empty">EMPTY CART</a></h6>
+		</div>
+	{% endif %}
+	</span>
+</nav>
+<div class="col-xs-12 desktop-spacer">.</div>
+
+
+
+<nav class="navbar-phone">
+	<span class="glyphicon glyphicon-menu-hamburger" id="navbar_phone" aria-hidden="true"></span>
+	<a href="/"><span>ALVAR ANTSON</span></a> 
+	{% if request.session.shopping_cart %}
+	<span class="glyphicon glyphicon-shopping-cart" id="shopping_cart_phone" aria-hidden="true"></span>
 	{% endif %}
 </nav>
+<div class="navbar-phone-selector hidden">
+	<div class="col-xs-12 nav-menu"> 
+		<h3>
+			<a href="/">FRONT PAGE</a> <br><br> 
+			<a href="/beats">BEATS</a> <br><br> 
+			<a href="/releases">RELEASES</a> <br><br> 
+			{% if request.user.is_authenticated %}
+			<a href="/releases/import">IMPORT RELEASES</a> <br><br> 
+			{% endif %}
+			<a href="/videos">VIDEO</a> <br><br>
+			<a href="/code">CODE</a> <br><br>
+			<a href="/contact">CONTACT</a> <br><br> 
+			{% if request.session.shopping_cart %}
+			<a href="/checkout">CHECKOUT</a> <br><br> 
+			{% endif %}
+		</h3>
+	</div>
+</div>
+<div class="shopping_cart-phone hidden">
+	<div class="col-xs-12 nav-menu"> 
+		<h3>Total: {{ request.session.shopping_cart_total }} €</h3>
+		<br>
+		<table class="table table-borderless">
+			{% for item in request.session.shopping_cart %}
+			<tr>
+				<td class="text"><b>{{ item.beat_name }}</b></td>
+				<td class="text">{{ item.name }}</td>
+				<td class="text">{{ item.price }} €</td>
+				<td scope="row"><a class="remover" href="/checkout/remove/{{ item.beat_id }},{{ item.lease_id }}">X</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+		<br><br>
+		<h3><a href="/checkout/empty">EMPTY CART</a></h3>
+		<br>
+		<h3><a href="/checkout">CHECKOUT</a></h3>
+	</div>
+</div>
+<div class="col-xs-12 phone-spacer">.</div>

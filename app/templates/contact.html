@@ -1,0 +1,45 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'contact.css' %}">
+
+<div class="main">
+	
+
+<div class="col-xs-12 col-md-2"></div>
+<div class="col-xs-12 col-md-8">
+	<h2>About me:</h2>
+	<div class="col-xs-12 about">
+		<div class="col-xs-12 col-md-8">
+			<p>
+				{{ about.description|safe }}
+			</p>	
+		</div>
+		<div class="col-xs-12 col-md-4">
+			<img src="{{ about.mugshot.url }}">
+		</div>
+	</div>
+
+	<h3 class="center">.<br><br><br>
+	{{ about.email }}<br><br>
+		{% for item in socials %}
+		<a target="_blank" href="{{ item.url }}">
+			{% if item.img %}
+				<img src="{{ item.img.url }}">	
+			{% else %}
+				<img src="{{ item.img_url }}">
+			{% endif %}
+		{% endfor %}
+		</a> 
+	</h3>
+	
+</div>
+<div class="col-xs-12 col-md-2"></div>
+</div>
+
+<script type="text/javascript">
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		$(".main").toggleClass("phone");
+	}
+</script>
+
+{% include "navbar/footer.html" %}

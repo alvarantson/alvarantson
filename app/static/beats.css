@@ -1,21 +1,209 @@
 .beat {
-	height: 5em;
+	height: 6.1em;
+	background-color: var(--white) !important;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	border-radius: 0.25em 0.25em 0.25em 0.25em;
 }
+.beat .info,
 .beat .buy,
 .beat .img,
 .beat .player {
 	display: inline-block;
+	border-radius: 0.25em 0.25em 0.25em 0.25em;
 }
 .beat img {
-	height: 5em;
-	width: 5em;
+	height: 6em;
+	width: 6em;
+	position: absolute;
 	top: 0;
+	left: 0;
+	border-radius: 0.25em 0.25em 0.25em 0.25em;
+	cursor: pointer;
+}
+.info p {
+	background-color: var(--white);
+	margin-top: 0.75em;
 }
 audio {
+	margin-top: 1em;
 }
-.modal-body {
+.player {
+	background-color: var(--white);
+}
+.player audio {
+	width: 35vw;
+	background-color: var(--white);
+}
+input[type="checkbox"] {
+	display: none;
+}
+:checked + .tag-label{
+	background-color: var(--blue) !important;
+	color: var(--gray);
+	opacity: 0.75 !important;
+}
+.tag-label {
+	background-color: var(--white);
+	padding: 0.25em 0.5em 0.25em 0.5em;
+	border-radius: 0.25em;
+	margin: 0.1em 0.1em 0.1em 0.1em;
+	cursor: pointer;
+}
+.filters {
+	padding: 1em 1em 1em 1em !important;
+}
+.filters a {
+	margin-left: 1em;
+}
+input {
+	width: 100%;
+}
+.buy {
+	background-color: var(--white);
+	text-align: right;
+}
+.buy h3 {
+	background-color: var(--white);
+	font-size: 2.5em;
+	margin: 0.75em 0.5em 0 0;
+	padding: 0 0 0 0;
+}
+.buy h3 a {
+	color: var(--blue) !important;
+	opacity: 0.9;
+}
+.buy h3 a:hover {
+	opacity: 0.75 !important;
+}
+
+
+
+
+
+
+/*   POP-UP   */
+.pop-up .content {
+	padding-top: 0.5vh;
+	padding-bottom: 1vh;
+	padding-left: 0.5vw;
+	padding-right: 0.5vw;
+}
+.pop-up .leases {
 	text-align: center;
 }
-.modal-body td:hover {
-	background-color: rgba(150,150,150,0.15);
+.pop-up .td-overlay {
+	text-align: center;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	background-color: rgba(0,0,0,0);
+	margin-left: -0.65em;
+}
+.pop-up .td-overlay h3 {
+	font-size: 5em;
+	margin-top: 1em;
+	color: rgba(0,0,0,0.025);
+	width: 100%;
+}
+.pop-up .td {
+	background-color: var(--gray);
+	border: solid thin var(--white);
+	border-radius: .5em;
+	padding-bottom: .5em;
+}
+.pop-up .td:hover {
+	background-color: rgba(0,0,0,0.05);
+}
+.pop-up .td:hover h3 {
+	color: rgba(0,0,0,0.1);
+}
+.pop-up-img .content {
+	padding: 0 0 0 0;
+	margin-top: 0;
+	background-color: rgba(0,0,0,0);
+}
+.pop-up-img img {
+	width: 80vh;
+	max-width: 80vw;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+
+
+
+/*   PHONE   */
+
+.phone .filters {
+	text-align: center;
+}
+.phone input {
+	width: 95vw;
+}
+.phone .filters h3 {
+	font-size: 3em;
+}
+.phone .filters a {
+	font-size: 2em;
+}
+.phone .tag-label {
+	font-size: 2em;
+}
+.phone .beat {
+	height: 10em;
+	width: 95vw;
+	margin-left: 2.5vw;
+	margin-right: 2.5vw;
+}
+.phone .beat img {
+	height: 10em;
+	width: 10em;
+}
+.phone .info p {
+	font-size: 1.75em;
+	margin-top: 0.6em;
+}
+.phone .buy h3 {
+	font-size: 4em;
+}
+.phone .player audio {
+	width: 5vw;
+}
+.phone .player button,
+.phone .player {
+	background-color: rgba(0,0,0,0);
+	opacity: 0.9;
+	text-align: right;
+}
+.phone .player button {
+	font-size: 3.5em;
+	margin-top: 0.5em;
+	color: var(--dark);
+	background-color: var(--gray);
+	border-radius: 10em;
+	padding-right: 0.55em;
+	padding-bottom: 0.2em;
+}
+.glyphicon-pause {
+	color: var(--black);
+}
+.phone .pop-up .content h4 {
+	font-size: 1.25em;
+}
+.phone .td-overlay {
+	width: 100% !important;
+	display: none;
+}
+.phone .pop-up .content {
+	font-size: 2em;
+	padding: 5vh 5vw 5vh 5vw;
+}
+.phone .pop-up-img .content {
+	padding: 0 0 0 0;
+}
+.phone .pop-up .content table {
+	height: 100px;
 }

@@ -1,0 +1,26 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'contact.css' %}"> <!-- Re-use css -->
+
+<div class="col-xs-12 col-md-2"></div>
+<div class="col-xs-12 col-md-8 main">
+	<h2>Some of the recent projects I've been in:</h2>
+
+	{% for item in videos %}
+	<div class="col-xs-12 video">
+		<h3>{{ item.role }}</h3>
+		<iframe src="{{ item.yt_link }}"></iframe>
+	</div>
+	{% endfor %}
+
+
+
+</div>
+<div class="col-xs-12 col-md-2"></div>
+
+<script type="text/javascript">
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		$(".main").toggleClass("phone");
+	}
+</script>
+{% include "navbar/footer.html" %}

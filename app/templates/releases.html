@@ -1,23 +1,45 @@
 {% load static %}
 {% include "navbar/navbar.html" %}
 <link rel="stylesheet" type="text/css" href="{% static 'releases.css' %}">
+<div class="main">
 
-<form method="POST">{% csrf_token %}
-	<button type="submit" name="submit-btn" value="update-all-releases" onclick="loader()">UPDATE</button>
-</form>
-<form method="POST">{% csrf_token %}
-	<button type="submit" name="submit-btn" value="export-releases">EXPORT RELEASES</button>
-</form>
+<br><br><br>
 
-<table class="table table-dark table-bordered table-striped">
+<div class="col-xs-2 admin-button">
+	<form method="POST">{% csrf_token %}
+		<button type="submit" name="submit-btn" value="update-all-releases" onclick="loader()">UPDATE</button>
+	</form>
+</div>
+<div class="col-xs-2 admin-button">
+	<form method="POST">{% csrf_token %}
+		<button type="submit" name="submit-btn" value="export-releases">EXPORT RELEASES</button>
+	</form>
+</div>
+<div class="col-xs-2 admin-button">
+	
+</div>
+<div class="col-xs-2 admin-button">
+	
+</div>
+<div class="col-xs-2 admin-button">
+	
+</div>
+<div class="col-xs-2 admin-button">
+	
+</div>
+
+
+
+<table class="table table-bordered">
 	<thead>
 		<tr>
-			<th scope="col" colspan="4" class="th-form"><form method="POST">{% csrf_token %}
+			<th scope="col" colspan="5" class="th-form"><form method="POST">{% csrf_token %}
 				<input type="date" name="release_date1" value="{{ default_release_date1 }}">
 				<input type="date" name="release_date2" value="{{ default_release_date2 }}">
 				<input type="text" name="artist" value="{{ default_artist }}" placeholder="Artist">
 				<input type="text" name="name" value="{{ default_name }}" placeholder="Song">
 				<input type="text" name="role" value="{{ default_role }}" placeholder="Role">
+				<input type="text" name="genre" value="{{ default_genre }}" placeholder="Genre">
 				<button type="submit" name="submit-btn" value="search">FILTER</button>
 			</form></th>
 
@@ -38,6 +60,7 @@
 			<th scope="col">Release date</th>
 			<th scope="col">Artist</th>
 			<th scope="col">Song</th>
+			<th scope="col">Genre</th>
 			<th scope="col">Role</th>
 
 			<th scope="col" class="min-width centered">YT</th>
@@ -59,9 +82,10 @@
 		<tr>
 			<th scope="row">{{ item.release_date }}</th>
 			<td>{{ item.artist }}</td>
-			<td><a data-toggle="modal" data-target="#modal-{{ item.id }}">
+			<td><a onclick="pop_up('pop-up-{{ item.id }}')">
 				{{ item.name }}
 			</a></td>
+			<td>{{ item.genre }}</td>
 			<td>{{ item.role }}</td>
 			{% if item.youtube_url != "" %}
 				<td class="td-img"><a target="_blank" href="{{ item.youtube_url }}">
@@ -105,18 +129,15 @@
 </table>
 
 {% for item in releases %}
-<!-- Modal -->
-<div class="modal fade" id="modal-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">
-					<b>{{ item.artist }}</b> - {{ item.name }}
-					<span class="righty">{{ item.role }} - {{ item.release_date }}</span>
-				</h4>
-			</div>
-		<div class="modal-body">
-			
+<div class="pop-up hidden" id="pop-up-{{ item.id }}">
+	<div class="backdrop" onclick="pop_up('pop-up-{{ item.id }}')"></div>
+	<div class="col-xs-1"></div>
+	<div class="col-xs-10 content">
+		<h4>
+			<b>{{ item.artist }}</b> - {{ item.name }}
+			<span class="righty">{{ item.role }} - {{ item.release_date }}</span>
+		</h4>
+		<div class="col-xs-12">
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
@@ -180,14 +201,12 @@
 					{% endfor %}
 				</tbody>
 			</table>
-
-		</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			</div>
 		</div>
 	</div>
+	<div class="col-xs-1"></div>
 </div>
 {% endfor %}
+
+
+</div>
 {% include "navbar/footer.html" %}

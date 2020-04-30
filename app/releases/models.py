@@ -11,6 +11,7 @@ class Release(models.Model):
 	spotify_url = models.CharField(max_length=999, blank=True)
 
 	release_date = models.DateField(null=True)
+	genre = models.CharField(max_length=999, blank=True)
 
 	def __str__(self):
 		return self.artist+" - "+self.name+" "+str(self.release_date)

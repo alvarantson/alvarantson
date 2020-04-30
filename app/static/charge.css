@@ -1,0 +1,16 @@
+body {
+	text-align: center;
+}
+h2 {
+	margin-top: 2em;
+}
+nav {
+	display: none;
+}
+a {
+	background-color: var(--blue);
+	opacity: 0.7;
+	color: var(--white);
+	padding: 0.3em 0.6em 0.3em 0.6em;
+	border-radius: 0.25em;
+}

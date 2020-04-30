@@ -1,0 +1,71 @@
+.main {
+	margin-top: 4em;
+}
+h2 {
+	text-align: center;
+	margin-bottom: .25em;
+}
+hr {
+	margin-top: 0;
+	border-top: solid 1px var(--dark);
+	opacity: 0.5;
+}
+.intro {
+	margin-top: 5vh;
+	height: 60vh;
+	text-align: center;
+}
+.social {
+	width: 2.5em;
+	margin-left: .25em;
+	margin-right: .25em;
+	margin-top: 2em;
+}
+
+
+.beats {
+	margin-top: 5vh;
+	border-radius: 1em;
+}
+.item {
+	padding: 2em 2em 2em 2em;
+}
+.item img {
+	width: 100%
+}
+
+.releases {
+	margin-top: 10vh;
+	margin-bottom: 10vh;
+}
+table tr,
+table td {
+	border-top: none !important;
+	text-align: center !important;
+}
+.td-img img {
+	width: 2em;
+}
+
+
+
+.phone {
+	margin-top: 10em;
+}
+.phone h2 {
+	font-size: 4em;
+}
+.phone h3 {
+	font-size: 3em;
+}
+.phone ul,
+.phone p {
+	font-size: 3em;
+}
+.phone .social {
+	margin-top: 5em;
+}
+.phone tr,
+.phone td {
+	font-size: 24px;
+}
