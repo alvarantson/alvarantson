@@ -4,7 +4,8 @@ from django.db import models
 class About(models.Model):
 	description = models.TextField()
 	email = models.CharField(max_length=999)
-	mugshot = models.FileField(upload_to="contact")
+	mugshot = models.FileField(upload_to="contact", null=True, blank=True)
+	the_stu = models.FileField(upload_to="contact", null=True, blank=True)
 
 class Social_media(models.Model):
 	url = models.CharField(max_length=999)

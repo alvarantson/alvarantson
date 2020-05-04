@@ -2,8 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 import stripe
 from django.conf import settings
-from decimal import Decimal
-from paypal.standard.forms import PayPalPaymentsForm
 from .models import Buy_history, License_template, Receipt_template, Seller, Mail_list, Stripe_key
 from beats.models import Lease_option
 from LEHT.settings import BASE_DIR

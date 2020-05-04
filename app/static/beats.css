@@ -24,6 +24,7 @@
 .info p {
 	background-color: var(--white);
 	margin-top: 0.75em;
+	margin-left: 0.25em;
 }
 audio {
 	margin-top: 2.25em;
