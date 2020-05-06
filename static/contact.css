@@ -46,6 +46,9 @@
 
 
 /*  VIDEOS  */
+.video {
+	text-align: center;
+}
 iframe {
 	width: 70%;
 	height: 30em;
