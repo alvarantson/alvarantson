@@ -50,6 +50,9 @@ iframe {
 	width: 70%;
 	height: 30em;
 	border: none;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
 }
 
 
@@ -58,7 +61,4 @@ iframe {
 	height: 60vw;
 	margin-left: 2.5vw;
 	border-radius: .5em .5em .5em .5em;
-	margin-left: auto;
-	margin-right: auto;
-	display: block;
 }
