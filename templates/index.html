@@ -1,0 +1,143 @@
+{% load static %}
+{% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+
+
+<div class="col-xs-12 intro" style="background-image: url('{{ the_stu.url }}')">
+	<h1>ALVAR ANTSON</h1>
+	<h2>SOFT DEV <span>_</span> INSTRUMENTALS <span>_</span> MIXING <span>_</span> PRODUCTION <span>_</span> VIDEOS</h2>
+	<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+</div>
+<div class="main">
+	
+
+<div class="col-xs-12 col-md-2"></div>
+<div class="col-xs-12 col-md-8">
+	
+
+
+
+
+<div class="col-xs-12 beats">
+	<h2>RECENTLY ADDED INSTRUMENTALS</h2>
+	<hr>
+	<div class="col-xs-12 items">
+		<a href="/beats">
+
+			{% for beat in beats %}
+			<div class="col-xs-6 col-md-4 item">
+				<div class="hovereffect">
+					<img class="img-responsive" src="{{ beat.img.url }}">
+					<div class="overlay">
+						<a class="info" href="/beats">
+							<br>
+							"<b>{{ beat.name }}</b>"<br>
+							{{ beat.key }} - {{ beat.bpm }}<br>
+							{{ beat.date }}<br>
+							<br>
+							OTHER INSTRUMENTALS
+						</a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+
+		</a>
+	</div>
+	<hr>
+</div>
+
+
+<div class="col-xs-12 releases">
+	<h2>MOST RECENT RELEASES</h2>
+	<hr>
+	<table class="table table-borderless table-desktop">
+		<tbody>
+			{% for item in releases %}
+			<tr>
+				<td scope="row"><b>{{ item.release_date }}</b></td>
+				<td>{{ item.artist }}</td>
+				<td>{{ item.name }}</td>
+				<td>{{ item.genre }}</td>
+				<td>{{ item.role }}</td>
+				{% if item.youtube_url != "" %}
+					<td class="td-img"><a target="_blank" href="{{ item.youtube_url }}">
+						<img src="{% static 'yt_logo.png' %}">
+					</a></td>
+				{% else %}
+					<td class="min-width"></td>
+				{% endif %}
+				{% if item.soundcloud_url != "" %}
+					<td class="td-img"><a target="_blank" href="{{ item.soundcloud_url }}">
+						<img src="{% static 'sc_logo.png' %}">
+					</a></td>
+				{% else %}
+					<td class="min-width"></td>
+				{% endif %}
+				{% if item.spotify_url != "" %}
+					<td class="td-img"><a target="_blank" href="{{ item.spotify_url }}">
+						<img src="{% static 'sp_logo.png' %}">
+					</a></td>
+				{% else %}
+					<td class="min-width"></td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<table class="table table-borderless table-phone">
+	<tbody>
+		{% for item in releases %}
+		<tr>
+			<td scope="row"><b>{{ item.release_date }}</b></td>
+			<td>{{ item.artist }}</td>
+			<td>{{ item.name }}</td>
+			<td>{{ item.role }}</td>
+		</tr>
+		<tr>
+			<td>{{ item.genre }}</td>
+			{% if item.youtube_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.youtube_url }}">
+					<img src="{% static 'yt_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+			{% if item.soundcloud_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.soundcloud_url }}">
+					<img src="{% static 'sc_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+			{% if item.spotify_url != "" %}
+				<td class="td-img"><a target="_blank" href="{{ item.spotify_url }}">
+					<img src="{% static 'sp_logo.png' %}">
+				</a></td>
+			{% else %}
+				<td class="min-width"></td>
+			{% endif %}
+		</tr>
+		
+		{% endfor %}
+	</tbody>
+</table>
+</div>
+
+
+
+</div>
+<div class="col-xs-12 col-md-2"></div>
+
+
+</div>
+<script type="text/javascript">
+	if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+		$(".main").toggleClass("phone");
+		$(".table-desktop").toggleClass("hidden");
+	} else {
+		$(".table-phone").toggleClass("hidden");
+	};
+</script>
+
+{% include "navbar/footer.html" %}
