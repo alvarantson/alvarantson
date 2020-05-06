@@ -25,6 +25,7 @@ class Beat(models.Model):
 	key = models.CharField(max_length=999,blank=True)
 	tags = models.TextField(blank=True)
 	img = models.ImageField(upload_to="beat_covers")
+	img_thumb = models.ImageField(upload_to="beat_covers", null=True, blank=True)
 	mp3 = models.FileField(upload_to="beat_mp3s")
 	date = models.DateField(auto_now_add=True)
 

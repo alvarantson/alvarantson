@@ -30,7 +30,11 @@
 		{% for beat in beats %}
 			<div class="col-xs-12 beat">
 				<div class="img col-xs-1">
+					{% if beat.beat.img_thumb %}
+					<img onclick="pop_up('pop-up-img-{{ beat.beat.id }}')" src="{{ beat.beat.img_thumb.url }}">
+					{% else %}
 					<img onclick="pop_up('pop-up-img-{{ beat.beat.id }}')" src="{{ beat.beat.img.url }}">
+					{% endif %}
 				</div>
 				<div class="info col-xs-3">
 					<p>

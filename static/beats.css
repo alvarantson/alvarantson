@@ -154,7 +154,7 @@ input {
 	font-size: 2em;
 }
 .phone .beat {
-	height: 10em;
+	height: 12em;
 	width: 95vw;
 	margin-left: 2.5vw;
 	margin-right: 2.5vw;
@@ -162,6 +162,7 @@ input {
 .phone .beat img {
 	height: 10em;
 	width: 10em;
+	margin-top: 1em;
 }
 .phone .info p {
 	font-size: 1.75em;
@@ -169,6 +170,7 @@ input {
 }
 .phone .buy h3 {
 	font-size: 4em;
+	margin-top: 1em;
 }
 .phone .player audio {
 	width: 5vw;
@@ -181,7 +183,7 @@ input {
 }
 .phone .player button {
 	font-size: 3.5em;
-	margin-top: 0.5em;
+	margin-top: .75em;
 	color: var(--dark);
 	background-color: var(--gray);
 	border-radius: 10em;
