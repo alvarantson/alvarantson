@@ -10,7 +10,7 @@ class Buy_history(models.Model):
 	buyer_artist_name = models.CharField(max_length=999, blank=True)
 	buyer_email = models.CharField(max_length=999, blank=True)
 	buyer_address = models.CharField(max_length=999, blank=True)
-	receipt = models.FileField(upload_to="checkout_files", blank=True)
+	receipt = models.TextField()
 
 	def __str__(self):
 		return str(self.date) + " - " + str(self.shopping_cart_total) + " - " + self.buyer_email
@@ -31,6 +31,7 @@ class Seller(models.Model):
 	name = models.CharField(max_length=999)
 	email = models.CharField(max_length=999)
 	website = models.CharField(max_length=999)
+	company = models.CharField(max_length=999, default="Emart Auto OÜ")
 
 	def __str__(self):
 		return "Don't create a new entry!"

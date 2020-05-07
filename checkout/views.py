@@ -86,10 +86,9 @@ def charge(request): # https://testdriven.io/blog/django-stripe-tutorial/
 		stripe.api_key = stripe_private_key
 
 		description = (
-			'Alvar Antson beats -' + 
+			'alvarantson.com -' + 
 			request.POST["buyer_first_name"] + " " + 
 			request.POST["buyer_last_name"] + " - " + 
-			str(request.session["shopping_cart_total"])+ "€ - " +
 			request.POST["buyer_email"]
 			)
 
@@ -123,6 +122,9 @@ def charge(request): # https://testdriven.io/blog/django-stripe-tutorial/
 			"buy_id":buy_history.id,
 			"date":str(buy_history.date.strftime("%d %B, %Y"))
 			}
+
+		buy_history.receipt = download_receipt(request).content.decode('utf-8')
+		buy_history.save()
 
 		try:
 			if request.POST["mail_list"]:
@@ -183,6 +185,7 @@ def download_receipt(request):
 		"&lt;ARTIST_NAME&gt;": buy_history["buyer_artist_name"],
 		"&lt;SELLER_NAME&gt;": seller.name,
 		"&lt;SELLER_EMAIL&gt;": seller.email,
+		"&lt;COMPANY&gt;": seller.company,
 		"&lt;WEBSITE&gt;": seller.website,
 		"&lt;DATE&gt;": buy_history["date"],
 		"&lt;ORDER_SUM&gt;": request.session["shopping_cart_total"],
