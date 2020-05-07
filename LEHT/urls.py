@@ -36,5 +36,11 @@ urlpatterns = [
         ),
         name="favicon"
     ),
+    path('sitemap.xml',
+        RedirectView.as_view(
+            url=staticfiles_storage.url('sitemap.xml'),
+        ),
+        name="sitemap"
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
