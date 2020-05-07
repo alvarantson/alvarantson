@@ -84,10 +84,19 @@ def charge(request): # https://testdriven.io/blog/django-stripe-tutorial/
 	if request.method == 'POST':
 		stripe_private_key = Stripe_key.objects.all()[0].private_key
 		stripe.api_key = stripe_private_key
+
+		description = (
+			'Alvar Antson beats -' + 
+			request.POST["buyer_first_name"] + " " + 
+			request.POST["buyer_last_name"] + " - " + 
+			str(request.session["shopping_cart_total"])+ "€ - " +
+			request.POST["buyer_email"]
+			)
+
 		charge = stripe.Charge.create(
 			amount=request.session["shopping_cart_total_int"],
 			currency='eur',
-			description='Alvar Antson beats',
+			description= description,
 			source=request.POST['stripeToken']
 		)
 		shopping_cart = request.session["shopping_cart"]
