@@ -149,6 +149,13 @@ def download_license(request, lease_id):
 	lease = Lease_option.objects.get(id=lease_id)
 	buy_history = request.session["Buy_history"]
 	template = read_and_replace_template(BASE_DIR+License_template.objects.all().first().license.url, {
+		"<head>": (
+			"<head><title>" + 
+			lease.beat.name + "_" +
+			lease.name + "_" +
+			buy_history["buyer_artist_name"] + "_" +
+			"_license</title>"
+			),
 		"&lt;TRACK_NAME&gt;": lease.beat.name,
 		"&lt;TRACK_PRICE&gt;": lease.price,
 		"&lt;LICENSE&gt;": lease.name,
@@ -179,6 +186,7 @@ def download_receipt(request):
 	shopping_cart = request.session["shopping_cart"]
 	buy_history = request.session["Buy_history"]
 	context = {
+		"<head>": "<head><title>"+str(buy_history["buy_id"])+"_aacom</title>",
 		"&lt;ORDER_ID&gt;": "Order: "+str(buy_history["buy_id"]),
 		"&lt;BUYER_NAME&gt;": buy_history["buyer_first_name"]+" "+buy_history["buyer_last_name"],
 		"&lt;BUYER_EMAIL&gt;": buy_history["buyer_email"],
@@ -201,6 +209,7 @@ def download_receipt(request):
 
 	template = read_and_replace_template(BASE_DIR+Receipt_template.objects.all().first().receipt.url, context)
 	response = HttpResponse(template)
+	filename = str(buy_history["buy_id"])
 	#response = HttpResponse(template, content_type='application/text charset=utf-8')
 	#response['Content-Disposition'] = 'attachment; filename="{}.html"'.format(filename)
 	return response
@@ -213,9 +222,7 @@ def download_files(request, random_str):
 		return HttpResponseRedirect(url)
 	else:
 		files = lease.file
-		filename = lease.file.name
 		response = HttpResponse(files, content_type='audio/mpeg')
-		response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
 		return response
 
 
