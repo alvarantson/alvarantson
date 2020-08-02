@@ -29,7 +29,7 @@
 
 	<div class="col-xs-12 leases">
 		{% for lease in leases %}
-		<div class="col-xs-4 lease">
+		<div class="col-xs-12 col-md-6 col-lg-4 lease">
 			<br><br><br>
 			<a href="/checkout/add/{{ lease.id }}">ADD TO CART</a>
 			<h3>{{ lease.name }}</h3>
@@ -42,51 +42,8 @@
 </div>
 
 
-
-
-	
-
-	<div class="col-xs-12 col-md-8 beats beats-phone">
-		{% for beat in beats %}
-			<div class="col-xs-12 beat">
-				<div class="img col-xs-2">
-					<img onclick="pop_up('pop-up-img-{{ beat.beat.id }}')" src="{{ beat.beat.img.url }}">
-				</div>
-				<div class="info col-xs-6">
-					<p>
-						<b>{{ beat.beat.name }}</b><br>
-						BPM: {{ beat.beat.bpm }}, KEY: {{ beat.beat.key }}<br>
-						{{ beat.beat.tags }}
-					</p>
-				</div>
-				<div class="player col-xs-2">
-					<audio id="player-{{ beat.beat.id }}" preload="none">
-						<source src="{{ beat.beat.mp3.url }}" type="audio/mp3">
-						Your browser does not support the audio element.
-					</audio>
-					<button id="player-{{ beat.beat.id }}-play" onclick="document.getElementById('player-{{ beat.beat.id }}').play();$('#player-{{ beat.beat.id }}-play').toggleClass('hidden');$('#player-{{ beat.beat.id }}-pause').toggleClass('hidden');">
-						<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
-					</button>
-					<button id="player-{{ beat.beat.id }}-pause" class="hidden" onclick="document.getElementById('player-{{ beat.beat.id }}').pause();$('#player-{{ beat.beat.id }}-play').toggleClass('hidden');$('#player-{{ beat.beat.id }}-pause').toggleClass('hidden');">
-						<span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
-					</button>
-				</div>
-				<div class="buy col-xs-2">
-					<h3>
-						<a onclick="pop_up('pop-up-{{ beat.beat.id }}')">
-							<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-						</a>
-					</h3>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
-
-
-
 </div>
 <div class="col-xs-12 col-md-2"></div>
-
 
 
 <script type="text/javascript">
@@ -98,64 +55,6 @@
 	};
 </script>
 
-{% for beat in beats %}
-<div class="pop-up hidden pop-up-img" id="pop-up-img-{{ beat.beat.id }}">
-	<div class="backdrop" onclick="pop_up('pop-up-img-{{ beat.beat.id }}')"></div>
-	<div class="col-xs-1 col-md-3"></div>
-	<div class="col-xs-10 col-md-6 content">
-		<img src="{{ beat.beat.img.url }}">
-	</div>
-	<div class="col-xs-1 col-md-3"></div>
-</div>
-
-
-<div class="pop-up hidden" id="pop-up-{{ beat.beat.id }}">
-	<div class="backdrop" onclick="pop_up('pop-up-{{ beat.beat.id }}')"></div>
-	<div class="col-xs-1 col-md-3"></div>
-	<div class="col-xs-10 col-md-6 content">
-		<h4>
-			<b>{{ beat.beat.name }}</b> - lease options
-		</h4>
-		<div class="col-xs-12 leases">
-				{% for pair in beat.lease_options %}
-				<div class="col-xs-12 pair">
-					{{ pair.count }}
-					{% if not pair.1 and pair.0 %}
-					<div class="col-xs-3"></div>
-					<div class="col-xs-6 td">
-						<a href="/checkout/add/{{ pair.0.id }}">
-						<h2>{{ pair.0.name }}</h2>
-						<p>{{ pair.0.description|linebreaks }}</p>
-						<h2>{{ pair.0.price }} €</h2>
-						
-						<div class="td-overlay" id="overlay-{{ pair.0.id }}">
-							<h3><b>ADD TO CART</b></h3>
-						</div>
-						</a>
-					</div>
-					<div class="col-xs-3"></div>
-					{% else %}
-					{% for lease in pair %}
-					<div class="col-xs-6 td">
-						<a href="/checkout/add/{{ lease.id }}">
-						<h2>{{ lease.name }}</h2>
-						<p>{{ lease.description|linebreaks }}</p>
-						<h2>{{ lease.price }} €</h2>
-						
-						<div class="td-overlay" id="overlay-{{ lease.id }}">
-							<h3><b>ADD TO CART</b></h3>
-						</div>
-						</a>
-					</div>
-					{% endfor %}
-					{% endif %}
-				</div>
-				{% endfor %}
-		</div>
-	</div>
-	<div class="col-xs-1 col-md-3"></div>
-</div>
-{% endfor %}
 
 
 </div>
