@@ -1,0 +1,49 @@
+.header {
+	height: 70em;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: fixed;
+}
+.title {
+	height: 22.5em;
+}
+.title h3 {
+	text-align: right;
+	font-size: 2em;
+	color: var(--white);
+	font-weight: 1000;
+	margin-right: .5em;
+}
+.player {
+	background-color: rgba(0,0,0,0) !important;
+	height: 22.5em;
+}
+.player audio {
+	background-color: rgba(0,0,0,0) !important;
+	text-align: center;
+}
+.leases {
+	background-color: rgba(255,255,255,.9);
+	height: 25em;
+}
+.leases .lease {
+	text-align: center;
+	height: 25em;
+	border: thin solid rgba(0,0,0,.05);
+	border-radius: 2em 2em 2em 2em;
+}
+.leases .lease h3 {
+	font-size: 2em;
+}
+.leases .lease a {
+	background-color: var(--blue);
+	color: var(--gray);
+	padding: 0.25em 0.5em 0.25em 0.5em;
+	border-radius: 0.25em;
+	margin: 0.1em 0.1em 0.1em 0.1em;
+	cursor: pointer;
+	font-size: 2em;
+	font-weight: 1000;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}

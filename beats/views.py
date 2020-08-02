@@ -54,3 +54,10 @@ def beats(request):
 		"tags_selected": tags_selected,
 		"searched": searched
 		})
+
+def beat(request, beat_name):
+	beat = Beat.objects.get(name=beat_name)
+	return render(request, "beat.html", {
+		"beat": beat,
+		"leases": Lease_option.objects.filter(beat=beat)
+		})

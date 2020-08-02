@@ -1,5 +1,6 @@
 {% load static %}
 {% include "navbar/navbar.html" %}
+<link rel="stylesheet" type="text/css" href="{% static 'beat.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'beats.css' %}">
 <br><br><br><br><br><br>
 <div class="col-xs-12 main">
@@ -8,60 +9,42 @@
 <div class="col-xs-12 col-md-8">
 
 
+<div class="col-xs-12 header" style="background-image: url('{{ beat.img.url }}')">
 
-	<div class="col-xs-12 filters">
-		<div class="col-xs-12">
-			<h3>Filters</h3>
-			<form method="POST">{% csrf_token %}
-				<input type="text" name="beat_name" value="{{ searched }}" placeholder="Beat name">
-				<br>
-				{% for tag in tags %}
-				<label>
-					<input type="checkbox" name="tag_{{ tag }}"{% if tag in tags_selected %} checked{% endif %}>
-					<span class="tag-label unselectable">{{ tag }}</span>
-				</label> 
-				{% endfor %}
-				<br>
-				<button type="submit">SEARCH</button> <a href="/beats">RESET FILTERS</a>
-			</form>
-		</div>
+	<div class="col-xs-12 title">
+		<h3>
+			{{ beat.bpm }}<br>
+			{{ beat.key }}
+		</h3>
 	</div>
-	<div class="col-xs-12 beats beats-desktop">
-		{% for beat in beats %}
-			<div class="col-xs-12 beat">
-				<div class="img col-xs-1">
-					{% if beat.beat.img_thumb %}
-					<img onclick="pop_up('pop-up-img-{{ beat.beat.id }}')" src="{{ beat.beat.img_thumb.url }}">
-					{% else %}
-					<img onclick="pop_up('pop-up-img-{{ beat.beat.id }}')" src="{{ beat.beat.img.url }}">
-					{% endif %}
-				</div>
-				<div class="info col-xs-3">
-					<a href="/beats/{{ beat.beat.name }}">
-					<p>
-						<b>{{ beat.beat.name }}</b><br>
-						BPM: {{ beat.beat.bpm }}, KEY: {{ beat.beat.key }}<br>
-						{{ beat.beat.tags }}
-					</p>
-					</a>
-				</div>
-				<div class="player col-xs-7">
-					<audio controls id="player-{{ beat.beat.id }}" preload="metadata">
-						<source src="{{ beat.beat.mp3.url }}" type="audio/mp3">
-						Your browser does not support the audio element.
-					</audio><br />
-					<a href="http://scriptgenerator.net/really-simple-embed-audio-player-script/" title="Generate here your HTML5 audio player" style="text-align: right;display: block"></a> 
-				</div>
-				<div class="buy col-xs-1">
-					<h3>
-						<a onclick="pop_up('pop-up-{{ beat.beat.id }}')">
-							<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
-						</a>
-					</h3>
-				</div>
-			</div>
+
+	<div class="col-xs-12 player"  align="center">
+		<audio  controls id="player-{{ beat.id }}" preload="metadata">
+			<source src="{{ beat.mp3.url }}" type="audio/mp3">
+			Your browser does not support the audio element.
+		</audio><br/>
+		<a href="http://scriptgenerator.net/really-simple-embed-audio-player-script/" title="Generate here your HTML5 audio player" style="text-align: right;display: block"></a> 
+	</div>
+
+
+	<div class="col-xs-12 leases">
+		{% for lease in leases %}
+		<div class="col-xs-4 lease">
+			<br><br><br>
+			<a href="/checkout/add/{{ lease.id }}">ADD TO CART</a>
+			<h3>{{ lease.name }}</h3>
+			<h5>{{ lease.description|linebreaks }}</h5>
+			<h3>{{ lease.price }}€</h3>
+		</div>
 		{% endfor %}
 	</div>
+
+</div>
+
+
+
+
+	
 
 	<div class="col-xs-12 col-md-8 beats beats-phone">
 		{% for beat in beats %}
