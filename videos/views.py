@@ -9,5 +9,5 @@ def videos(request):
 	#	item.save()
 
 	return render(request, "videos.html", {
-		'videos' : Video.objects.all()
+		'videos' : Video.objects.all()[::-1]
 		})
